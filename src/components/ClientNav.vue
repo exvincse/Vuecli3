@@ -82,6 +82,7 @@ export default {
   watch: {
     '$route': function (to, from) {
       this.CartShow()
+      this.$store.dispatch('Mcart/getCart')
     }
   },
   created () {

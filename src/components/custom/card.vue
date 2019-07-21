@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <div class="input-group mb-3 mt-3 mt-lg-0">
       <input type="text"
              class="form-control w-75"
@@ -120,6 +119,7 @@ export default {
       this.$store.dispatch('Mproduct/getProducts').then(() => {
         this.products = this.$store.state.Mproduct.product.slice()
         this.ary = this.products
+        this.datafilter()
       })
     },
     datafilter () {
