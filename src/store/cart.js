@@ -42,8 +42,6 @@ export default {
             context.commit('DISABLE', id)
             context.commit('LOADING', false, { root: true })
             resolve()
-          } else {
-            reject(new Error('error!'))
           }
         })
       })
