@@ -1,9 +1,8 @@
 <template>
   <div>
-    <div class="nav-fixed">
+    <div class="nav-fixed" style="z-index:5000;">
       <nav class="navbar navbar-expand-lg navbar-light justify-content-between"
-           style="background-color:#3c3c3c;
-           relative">
+           style="background-color:#3c3c3c;">
 
         <router-link to="/index"
                      class="text-white">

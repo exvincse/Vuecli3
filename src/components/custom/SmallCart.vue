@@ -10,7 +10,7 @@
         <span class="badge badge-pill badge-danger number">{{getProduct.length}}</span>
       </a>
 
-      <div class="dropdown-menu mt-2 d-block"
+      <div class="dropdown-menu mt-2 d-inline-block"
            v-if="show">
         <div class="px-4 py-3">
           <div v-if="getProduct.length">
