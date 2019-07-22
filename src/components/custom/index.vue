@@ -1,6 +1,6 @@
 <template>
   <div>
-    <header>
+    <header style="margin-top:-55px">
       <div class="bg-cover vh-100"
            style="background-image:url('https://images.unsplash.com/photo-1528025395519-c75c01dce62a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1047&q=80');
          position:relative">

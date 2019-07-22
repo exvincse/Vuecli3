@@ -1,5 +1,5 @@
 <template>
-  <div class="products-bg">
+  <div class="products-bg" style="margin-top:-55px">
     <div class="bd-example">
       <div id="carouselExampleCaptions"
            class="carousel slide"
@@ -74,15 +74,14 @@
                 <i class="fas fa-briefcase"></i>
                 所有商品</a>
               <a href="#"
+                 v-for="item in categories" :key="item"
                  class="list-group-item list-group-item-action"
-                 :class="{'active':active==='水果'}"
-                 @click.prevent="choose('水果')">
-                <i class="fab fa-apple fa-lg"></i>水果</a>
-              <a href="#"
-                 class="list-group-item list-group-item-action"
-                 :class="{'active':active==='飲料'}"
-                 @click.prevent="choose('飲料')">
-                <i class="fas fa-cocktail"></i>飲料</a>
+                 :class="{'active':active===item}"
+                 @click.prevent="choose(item)"
+                 >
+                <i class="fab fa-apple fa-lg" v-if="item==='水果'"></i>
+                <i class="fas fa-cocktail" v-if="item==='飲料'"></i>
+                {{item}}</a>
             </div>
           </div>
 
@@ -100,15 +99,37 @@ import card from '@/components/custom/card'
 export default {
   data () {
     return {
-      active: 'all'
+      active: 'all',
+      product: [],
+      categories: []
     }
   },
   components: {
     card
   },
+  created () {
+    this.products()
+  },
   methods: {
     choose (get) {
       this.active = get
+    },
+    products () {
+      this.$store.dispatch('Mproduct/getProducts').then(() => {
+        // let map = []
+        this.product = this.$store.state.Mproduct.product
+        // this.product.forEach((item) => {
+        //   map.push(item.category)
+        // })
+        // this.categories = map.filter((item, index, arr) => {
+        //   return arr.indexOf(item) === index
+        // })
+        let categories = []
+        this.product.forEach((item) => {
+          categories.push(item.category)
+        })
+        this.categories = Array.from(new Set(categories))
+      })
     }
   }
 }
