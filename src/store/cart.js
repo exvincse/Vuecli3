@@ -33,7 +33,7 @@ export default {
     removeCart (context, id) {
       context.commit('LOADING', true, { root: true })
       context.commit('DISABLE', id)
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/cart/${id}`
         axios.delete(api).then((response) => {
           if (response.data.success) {

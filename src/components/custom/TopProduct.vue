@@ -148,18 +148,28 @@ export default {
           this.$http.all(totalapi).then(
             this.$http.spread((...res) => {
               let mapdata = res.map(item => item.data)
-              mapdata.forEach((item) => {
-                let list = item.orders
-                list.forEach((item) => {
-                  if (item.is_paid) {
-                    item.create_at = Number(item.create_at * 1000)
-                    this.orders.push(item)
-                  }
+              let abc = new Promise((resolve) => {
+                mapdata.forEach((item) => {
+                  let list = item.orders
+                  list.forEach((item) => {
+                    if (item.is_paid) {
+                      item.create_at = Number(item.create_at * 1000)
+                      this.orders.push(item)
+                    }
+                  })
                 })
+                resolve()
               })
-              this.ary = this.orders
-              this.sort()
-              this.$store.dispatch('updateLoading', false)
+              abc.then(() => {
+                this.ary = this.orders
+                this.sort()
+                this.$store.dispatch('updateLoading', false)
+              })
+              // Promise.all([abc]).then(() => {
+              //   this.ary = this.orders
+              //   this.sort()
+              //   this.$store.dispatch('updateLoading', false)
+              // })
             })
           )
         }
