@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <alert></alert>
     <section class="my-4"
              v-if="Product">
@@ -82,8 +81,7 @@ export default {
     return {
       Product: {},
       ProductId: '',
-      error: '',
-      isLoading: false
+      error: ''
     }
   },
   computed: {

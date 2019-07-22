@@ -15,8 +15,6 @@ import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import App from './App'
 import router from './router'
-import './bus'
-import './cart'
 import curr from './filters/filter'
 import date from './filters/DateFilter'
 import store from './store'

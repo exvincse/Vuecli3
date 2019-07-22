@@ -1,7 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"
-             style="z-index:9999"></loading>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand col-sm-3 col-md-2 mr-0"
          href="#">控制面板</a>
@@ -18,20 +16,15 @@
 
 <script>
 export default {
-  data () {
-    return {
-      isLoading: false
-    }
-  },
   methods: {
     loginout () {
-      this.isLoading = true
+      this.$store.dispatch('updateLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/logout`
       this.$http.post(api).then((response) => {
         if (response.data.success) {
           this.$router.push('/login')
         }
-        this.isLoading = false
+        this.$store.dispatch('updateLoading', false)
       })
     }
   }

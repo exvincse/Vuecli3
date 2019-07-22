@@ -91,8 +91,7 @@ export default {
       pageproduct: [],
       products: [],
       product: {},
-      searchname: '',
-      isLoading: false
+      searchname: ''
     }
   },
   created () {

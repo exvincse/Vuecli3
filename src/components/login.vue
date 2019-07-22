@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Loading :active.sync="isLoading"></Loading>
     <form class="form-signin"
           @submit.prevent="signin">
       <h1 class="h3 mb-3 font-weight-normal">登入</h1>
@@ -54,15 +53,14 @@ export default {
         username: '',
         password: ''
       },
-      message: '',
-      isLoading: false
+      message: ''
     }
   },
   methods: {
     signin () {
       this.$validator.validate().then((valid) => {
         if (valid) {
-          this.isLoading = true
+          this.$store.dispatch('updateLoading', true)
           const api = `${process.env.VUE_APP_APIPATH}/admin/signin`
           this.$http.post(api, this.user).then((response) => {
             if (response.data.success) {
@@ -70,7 +68,7 @@ export default {
             } else {
               this.message = response.data.message
             }
-            this.isLoading = false
+            this.$store.dispatch('updateLoading', false)
           })
         }
       })

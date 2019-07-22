@@ -1,7 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"
-             style="z-index:9999"></loading>
     <div class="text-right mt-4">
       <button class="btn btn-primary"
               @click="openModal(true)">建立新的產品</button>
@@ -83,7 +81,6 @@ export default {
       },
       pagination: {},
       isNew: false,
-      isLoading: false,
       status: {
         fileUploading: false
       }
@@ -109,7 +106,7 @@ export default {
       $('#productModal').modal('show')
     },
     updateproduct () {
-      this.isLoading = true
+      this.$store.dispatch('updateLoading', true)
       let api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product`
       let httpMethod = 'post'
       if (!this.isNew) {
@@ -126,7 +123,7 @@ export default {
           this.getProducts()
           this.$bus.$emit('message:push', response.data.message, 'danger')
         }
-        this.isLoading = false
+        this.$store.dispatch('updateLoading', false)
       })
     },
     delModal (item) {
@@ -134,7 +131,7 @@ export default {
       $('#delProductModal').modal('show')
     },
     delData () {
-      this.isLoading = true
+      this.$store.dispatch('updateLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/product/${this.tempproduct.id}`
       this.$http.delete(api).then((response) => {
         if (response.data.success) {
@@ -146,7 +143,7 @@ export default {
           this.getProducts()
           this.$bus.$emit('message:push', response.data.message, 'danger')
         }
-        this.isLoading = false
+        this.$store.dispatch('updateLoading', false)
       })
     },
     getPageData (get) {

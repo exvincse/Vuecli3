@@ -2,8 +2,6 @@
   <div>
     <alert></alert>
     <div class="container mt-4">
-      <Loading :active.sync="isLoading"
-               style="z-index:9999"></Loading>
       <div class="row">
         <NavDate class="col-lg-5"
                  @changeMonth="changeMonth"></NavDate>
@@ -92,7 +90,6 @@ export default {
   data () {
     return {
       pay: 'enable',
-      isLoading: false,
       getCoupon: [],
       ary: [],
       pagedata: [],
@@ -106,12 +103,12 @@ export default {
   methods: {
     //  ajax獲取資料
     getcoupons (page = 1) {
-      this.isLoading = true
+      this.$store.dispatch('updateLoading', true)
       this.getCoupon = []
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
       this.$http.get(api).then((response) => {
         if (response.data.success === false) {
-          this.isLoading = false
+          this.$store.dispatch('updateLoading', false)
           return
         }
         let totalpage = response.data.pagination.total_pages
@@ -132,7 +129,7 @@ export default {
               }
             }
             this.ary = this.getCoupon
-            this.isLoading = false
+            this.$store.dispatch('updateLoading', false)
           })
         )
       })
@@ -152,7 +149,7 @@ export default {
     updateCoupons (duedate) {
       this.$validator.validate().then((valid) => {
         if (valid) {
-          this.isLoading = true
+          this.$store.dispatch('updateLoading', true)
           let timestemp = new Date(duedate).getTime()
           this.tempCoupon.due_date = timestemp
           let method = 'post'
@@ -175,7 +172,7 @@ export default {
               this.getcoupons()
               this.$bus.$emit('message:push', response.data.message, 'danger')
             }
-            this.isLoading = false
+            this.$store.dispatch('updateLoading', false)
           })
         }
       })
@@ -187,7 +184,7 @@ export default {
     },
 
     DeleteData (id) {
-      this.isLoading = true
+      this.$store.dispatch('updateLoading', true)
       const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupon/${id}`
       this.$http.delete(api).then((response) => {
         if (response.data.success) {
@@ -199,7 +196,7 @@ export default {
           this.getcoupons()
           this.$bus.$emit('message:push', response.data.message, 'danger')
         }
-        this.isLoading = false
+        this.$store.dispatch('updateLoading', false)
       })
     },
     //  NavDate元件呼叫方法

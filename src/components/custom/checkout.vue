@@ -1,6 +1,5 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
     <div class="container mt-5">
       <div class="mb-3">
         <h1 class="text-center">結帳</h1>
@@ -103,7 +102,6 @@ export default {
   data () {
     return {
       check: false,
-      isLoading: false,
       orderid: '',
       order: {
         user: {}

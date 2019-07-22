@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="container mt-4">
-      <Loading :active.sync="isLoading"></Loading>
       <div class="row">
         <NavDate class="col-lg-8"
                  @changeMonth="changeMonth"></NavDate>
@@ -73,8 +72,7 @@ export default {
       pay: 'pay',
       orders: [],
       ary: [],
-      pagedata: [],
-      isLoading: false
+      pagedata: []
     }
   },
   components: {
