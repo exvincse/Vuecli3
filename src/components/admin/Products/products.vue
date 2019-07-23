@@ -117,11 +117,13 @@ export default {
         if (response.data.success) {
           $('#productModal').modal('hide')
           this.getProducts()
-          this.$bus.$emit('message:push', response.data.message, 'success')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'success' })
         } else {
           $('#productModal').modal('hide')
           this.getProducts()
-          this.$bus.$emit('message:push', response.data.message, 'danger')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'danger' })
         }
         this.$store.dispatch('updateLoading', false)
       })
@@ -137,11 +139,13 @@ export default {
         if (response.data.success) {
           $('#delProductModal').modal('hide')
           this.getProducts()
-          this.$bus.$emit('message:push', response.data.message, 'success')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'danger' })
         } else {
           $('#delProductModal').modal('hide')
           this.getProducts()
-          this.$bus.$emit('message:push', response.data.message, 'danger')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'danger' })
         }
         this.$store.dispatch('updateLoading', false)
       })

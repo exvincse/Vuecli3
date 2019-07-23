@@ -39,3 +39,13 @@
        flex: 1 1 auto;
     }
   }
+
+  .client-select{
+    position: relative;
+    .clear{
+      position: absolute;
+      top: 0;
+      right: 60px;
+    }
+  }
+  

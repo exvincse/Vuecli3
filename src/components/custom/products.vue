@@ -70,18 +70,24 @@
               <a href="#"
                  class="list-group-item list-group-item-action rounded-0"
                  :class="{'active':active==='all'}"
-                 @click.prevent="choose('all')">
+                 @click.prevent="active='all'">
                 <i class="fas fa-briefcase"></i>
                 所有商品</a>
               <a href="#"
                  v-for="item in categories" :key="item"
                  class="list-group-item list-group-item-action"
                  :class="{'active':active===item}"
-                 @click.prevent="choose(item)"
+                 @click.prevent="active=item"
                  >
                 <i class="fab fa-apple fa-lg" v-if="item==='水果'"></i>
                 <i class="fas fa-cocktail" v-if="item==='飲料'"></i>
                 {{item}}</a>
+              <!-- <select name="" id="" @change="active=test" v-model="test">選擇
+              <option value="all">all</option>
+              <option :value="item"
+                v-for="item in categories" :key="item"
+                >{{item}}</option>
+              </select> -->
             </div>
           </div>
 
@@ -100,6 +106,7 @@ export default {
   data () {
     return {
       active: 'all',
+      test: '',
       product: [],
       categories: []
     }
@@ -111,9 +118,6 @@ export default {
     this.products()
   },
   methods: {
-    choose (get) {
-      this.active = get
-    },
     products () {
       this.$store.dispatch('Mproduct/getProducts').then(() => {
         // let map = []

@@ -1,8 +1,7 @@
 <template>
   <div>
     <alert></alert>
-    <section class="my-4"
-             v-if="Product">
+    <section v-if="Product">
       <div class="container">
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent px-0">

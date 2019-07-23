@@ -48,14 +48,11 @@ export default {
       limit: 10,
       TotalLength: 0,
       PageData: [],
-      totalpage: 0
+      totalpage: 0,
+      sortary: []
     }
   },
   watch: {
-    TotalLength () {
-      this.sortdata()
-      this.pagedata(1)
-    },
     ary: {
       handler: 'Datadefault',
       immediate: true
@@ -93,11 +90,12 @@ export default {
     Datadefault () {
       this.TotalLength = this.ary.length
       this.totalpage = Math.ceil(this.ary.length / this.limit)
+      this.sortdata()
     },
     //  當前頁資料
     pagedata (page) {
       this.PageData = []
-      if (this.ary.length === 0) {
+      if (this.sortary.length === 0) {
         return
       }
       if (page <= 0) page = 1
@@ -109,7 +107,7 @@ export default {
         end = this.TotalLength
       }
       for (let i = start; i < end; i++) {
-        this.PageData.push(this.ary[i])
+        this.PageData.push(this.sortary[i])
       }
       this.$emit('getPageData', this.PageData)
     },
@@ -129,7 +127,11 @@ export default {
 
     sortdata () {
       //  判斷當前是優惠卷還是訂單或者是商品頁
-      this.ary.sort((a, b) => {
+      this.sortary = []
+      this.ary.forEach((item) => {
+        this.sortary.push(item)
+      })
+      this.sortary.sort((a, b) => {
         if (this.makeout === 'pay') {
           return b.is_paid - a.is_paid
         } else if (this.makeout === 'enable') {
@@ -140,6 +142,7 @@ export default {
           return a.origin_price - b.origin_price
         }
       })
+      this.pagedata(1)
     }
   }
 }

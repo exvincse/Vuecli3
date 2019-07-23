@@ -1,14 +1,18 @@
 <template>
   <div>
-    <div class="input-group mb-3 mt-3 mt-lg-0">
-      <input type="text"
-             class="form-control w-75"
+    <div class="input-group mb-3 mt-3 mt-lg-0 client-select">
+         <input type="text"
+             class="form-control pr-5"
              placeholder="搜尋商品"
              v-model.trim="searchname"
              @keyup.enter="search()">
+          <button class="btn clear" style="z-index:20"
+            v-if="claer"
+            @click="ClearSearch()">
+            <i class="fas fa-times"></i>
+          </button>
       <div class="input-group-append">
-        <button type="submit"
-                class="btn btn-outline-brown"
+        <button class="btn btn-outline-brown"
                 @click="search()">搜尋</button>
       </div>
     </div>
@@ -91,7 +95,8 @@ export default {
       pageproduct: [],
       products: [],
       product: {},
-      searchname: ''
+      searchname: '',
+      claer: false
     }
   },
   created () {
@@ -123,6 +128,8 @@ export default {
     },
     datafilter () {
       this.ary = []
+      this.searchname = ''
+      this.claer = false
       if (this.active === 'all') {
         this.products.forEach((item) => {
           if (item.is_enabled === 1) {
@@ -154,16 +161,19 @@ export default {
     },
 
     search () {
-      this.ary = []
       if (this.searchname === '') {
-        // this.ary = this.products
         return
       }
+      this.claer = true
       this.ary = this.products.filter((item) => {
         return item.title.indexOf(this.searchname) !== -1
       })
     },
-
+    ClearSearch () {
+      this.claer = false
+      this.searchname = ''
+      this.ary = this.products
+    },
     gotoproduct (id) {
       this.$router.push(`/products/${id}`)
     }

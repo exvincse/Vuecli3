@@ -8,7 +8,7 @@ export default {
   actions: {
     getProducts (context) {
       context.commit('LOADING', true, { root: true })
-      return new Promise((resolve, reject) => {
+      return new Promise((resolve) => {
         const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/products/all`
         axios.get(api).then((response) => {
           if (response.data.success) {
@@ -18,8 +18,6 @@ export default {
             context.commit('PRODUCT', filter)
             context.commit('LOADING', false, { root: true })
             resolve()
-          } else {
-            reject(new Error('123'))
           }
         })
       })

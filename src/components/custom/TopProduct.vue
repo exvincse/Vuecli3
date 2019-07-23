@@ -148,28 +148,18 @@ export default {
           this.$http.all(totalapi).then(
             this.$http.spread((...res) => {
               let mapdata = res.map(item => item.data)
-              let abc = new Promise((resolve) => {
-                mapdata.forEach((item) => {
-                  let list = item.orders
-                  list.forEach((item) => {
-                    if (item.is_paid) {
-                      item.create_at = Number(item.create_at * 1000)
-                      this.orders.push(item)
-                    }
-                  })
+              mapdata.forEach((item) => {
+                let list = item.orders
+                list.forEach((item) => {
+                  if (item.is_paid) {
+                    item.create_at = Number(item.create_at * 1000)
+                    this.orders.push(item)
+                  }
                 })
-                resolve()
               })
-              abc.then(() => {
-                this.ary = this.orders
-                this.sort()
-                this.$store.dispatch('updateLoading', false)
-              })
-              // Promise.all([abc]).then(() => {
-              //   this.ary = this.orders
-              //   this.sort()
-              //   this.$store.dispatch('updateLoading', false)
-              // })
+              this.ary = this.orders
+              this.sort()
+              this.$store.dispatch('updateLoading', false)
             })
           )
         }
@@ -207,7 +197,6 @@ export default {
           }
         })
       })
-      // 選出前5銷售數
       popular.sort((a, b) => {
         return b.total_num - a.total_num
       })

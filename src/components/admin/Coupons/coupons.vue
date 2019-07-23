@@ -102,10 +102,10 @@ export default {
   },
   methods: {
     //  ajax獲取資料
-    getcoupons (page = 1) {
+    getcoupons () {
       this.$store.dispatch('updateLoading', true)
       this.getCoupon = []
-      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${page}`
+      const api = `${process.env.VUE_APP_APIPATH}/api/${process.env.VUE_APP_CUSTOMPATH}/admin/coupons?page=${1}`
       this.$http.get(api).then((response) => {
         if (response.data.success === false) {
           this.$store.dispatch('updateLoading', false)
@@ -166,11 +166,13 @@ export default {
             if (response.data.success) {
               $('#couponModal').modal('hide')
               this.getcoupons()
-              this.$bus.$emit('message:push', response.data.message, 'success')
+              let message = response.data.message
+              this.$store.dispatch('updateMessage', { message, status: 'success' })
             } else {
               $('#couponModal').modal('hide')
               this.getcoupons()
-              this.$bus.$emit('message:push', response.data.message, 'danger')
+              let message = response.data.message
+              this.$store.dispatch('updateMessage', { message, status: 'danger' })
             }
             this.$store.dispatch('updateLoading', false)
           })
@@ -190,11 +192,13 @@ export default {
         if (response.data.success) {
           $('#delCouponModal').modal('hide')
           this.getcoupons()
-          this.$bus.$emit('message:push', response.data.message, 'success')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'danger' })
         } else {
           $('#delCouponModal').modal('hide')
           this.getcoupons()
-          this.$bus.$emit('message:push', response.data.message, 'danger')
+          let message = response.data.message
+          this.$store.dispatch('updateMessage', { message, status: 'danger' })
         }
         this.$store.dispatch('updateLoading', false)
       })

@@ -1,7 +1,7 @@
 <template>
   <div>
     <alert></alert>
-    <navbar style="height:55px"></navbar>
+    <navbar style="margin-bottom:55px"></navbar>
     <router-view></router-view>
      <footer>
       <div class="p-5"

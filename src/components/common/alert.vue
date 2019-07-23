@@ -19,10 +19,6 @@
 <script>
 export default {
   name: 'Navbar',
-  data () {
-    return {
-    }
-  },
   computed: {
     messages () {
       return this.$store.state.message

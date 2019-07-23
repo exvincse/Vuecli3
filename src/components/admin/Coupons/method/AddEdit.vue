@@ -96,13 +96,22 @@
               </div>
             </div>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" v-if="tempCoupon.id">
             <button type="button"
                     class="btn btn-outline-secondary"
                     data-dismiss="modal">取消</button>
             <button type="button"
                     class="btn btn-outline-primary"
                     @click="updateCoupons()">更新優惠券</button>
+          </div>
+
+          <div class="modal-footer" v-else>
+            <button type="button"
+                    class="btn btn-outline-secondary"
+                    data-dismiss="modal">取消</button>
+            <button type="button"
+                    class="btn btn-outline-primary"
+                    @click="updateCoupons()">新增優惠券</button>
           </div>
         </div>
       </div>
